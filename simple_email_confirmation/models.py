@@ -203,6 +203,10 @@ class EmailAddressManager(models.Manager):
         return address
 
 
+def get_now():
+    return timezone.now()
+
+
 class EmailAddress(models.Model):
     "An email address belonging to a User"
 
@@ -213,7 +217,7 @@ class EmailAddress(models.Model):
     key = models.CharField(max_length=40, unique=True)
 
     set_at = models.DateTimeField(
-        default=lambda: timezone.now(),
+        default=get_now,
         help_text='When the confirmation key expiration was set',
     )
     confirmed_at = models.DateTimeField(
